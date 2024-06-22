@@ -1,0 +1,10 @@
+> mckdir cd project-name
+
+> npm init -y in the folder directory
+> pnpm init
+ 
+
+> npm install --global typescript
+> To convert a .ts to js tsc index.ts
+
+monitor changes made in js file node --watch index.js
