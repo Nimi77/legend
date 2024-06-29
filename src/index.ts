@@ -176,20 +176,20 @@ let arrOfCommenter: readonly string[]= ['ama', 'leo'];
 let arrOfCommenter2 : ReadonlyArray<string> = ["poly"]
 
 //fetching github repo 
-async function fetchGithubUser(username:string) {
-  return fetch(`https://api.github.com/users/${username}`).then((res)=>
-    res.json()
-  );
-}
-(async () => {
-  let githubUser = await fetchGithubUser('Nimi77');
-  console.log(githubUser.avatar_url)
-})();
+// async function fetchGithubUser(username:string) {
+//   const response = await fetch(`https://api.github.com/users/${username}`)
+//   return response.json()
+// }
+// (async () => {
+//   let githubUser = await fetchGithubUser('Nimi77');
+//   console.log(githubUser.avatar_url)
+// })();
 
 //special utility type   --- Omit<>, Pick<>, ReturnType<>, Partial<>, KeyOf | indexof
 type GithubUser = {
     login:string;
     id:number;
+    avatar_url:string;
     following:number;
     created_at:string;
   }
@@ -206,8 +206,22 @@ let newGithubModified : NewGithubModified = {
 }
 console.log(newGithubModified)
 
+//.......learning generics
+//T & U --- INTERSECTION  T | U --UNIOUN
+function merge<T, U>(firstObject:T, secondObject:U){
+  return{
+    ...firstObject,
+    ...secondObject
+  }
+}
+type Result<T extends Function> = T extends (...args:any) => infer R ? R:any;
+//"extend" is a way to constrain generics
+type NewType = Result<typeof add2>
+let res22 = merge({name:"Tola"}, {age:9})
+let res21 =merge({school:"Altschool"}, {job:"lawmaker"})
+console.log(res21, res22)
 
-//learning generics
+//another generic example
 function getRandomNumberElement<T>(items: T[]): T {
   let RandomIndex = Math.floor(Math.random() * items.length);
   return items[RandomIndex];
@@ -216,6 +230,73 @@ let randyValue = getRandomNumberElement(["ayo", "tunmise", "peter", "dorcas"]);
 console.log(randyValue);
 
 let r = getRandomNumberElement([true, false]);
+
+//enumss
+enum Role {
+  ADMIN,
+  CLIENT, 
+  SUPERADMIN
+}
+type User = {
+  id: number,
+  role: Role,   // or role: "client" | admin | superAdmin
+  name:string,
+  address:string
+}
+function checkUserRole(user: User): string{
+  const {role} = user;
+
+  if(role === Role.ADMIN ){
+  // time quards and narrowing 
+    return "admin"
+  }else if(role === Role.CLIENT){
+    return "client";
+  }
+  return "superAdmin"
+}
+let useAltschool = {
+  id:6,
+  role: Role.ADMIN,
+  name:"tope",
+  address:"zone4"
+}
+let confirmInfo = checkUserRole(useAltschool)
+console.log(confirmInfo)
+
+//type manipulation --- keyof, typeof, in, infer, extend, in, as, is
+
+type U = keyof User
+let u:U = 'role'
+console.log(u)
+
+let myFav = "biscuit"
+type Fav = typeof myFav
+
+type checkFav = ReturnType<typeof checkUserRole>
+
+function f(){
+  return{x:9, y:6}
+}
+//infer
+type P = ReturnType<typeof f>
+
+//indexed  access types
+type Person44 = {name:string, fav:string , id:number, location:string}
+type ID = Person44["name" | "location"];
+
+//Conditional Types
+interface ThreeParams extends Params{
+  p:number;
+}
+type NewParams = ThreeParams extends Params ? string : number;
+
+//mapped Types
+type Person34 = {
+  [key:string]: string;
+}
+//creating types with  Template Object Literals
+type World = "worldd"
+type greeting = `hello ${World}`;
 
 
 //zod, drizzle
