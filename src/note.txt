@@ -8,3 +8,12 @@
 > To convert a .ts to js tsc index.ts
 
 monitor changes made in js file node --watch index.js
+
+npx tsc --init  (to add tsconfig to a project)
+export {}  .. to separate different typescipt file, allows to redeclare scope
+
+..pnpm lint:types (added to package.json)
+> type binding for nodejs to clear the error in tsconfig < pnpm install -D @types/node >
+> for react project < pnpm add -D @types/react @types/react-dom >
+
+>React Typescript Cheatsheet

@@ -298,6 +298,9 @@ type Person34 = {
 type World = "worldd"
 type greeting = `hello ${World}`;
 
+//type assertion "has"
+//obj!.name -- non null assertion, typescript will not check null and allow access
+
 
 //zod, drizzle
 // Proficiency in advanced animation libraries like GSAP, Lottie, Three.js, Anime.js, 

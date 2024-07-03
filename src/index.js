@@ -1,4 +1,14 @@
-
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 //.........first class
 var school = "altschool";
 console.log(school);
@@ -178,6 +188,13 @@ var confirmInfo = checkUserRole(useAltschool);
 console.log(confirmInfo);
 var u = 'role';
 console.log(u);
+var myFav = "biscuit";
+function f() {
+    return { x: 9, y: 6 };
+}
+//type assertion "has"
+//obj!.name -- non null assertion, typescript will not check null and allow access
+
 //zod, drizzle
 // Proficiency in advanced animation libraries like GSAP, Lottie, Three.js, Anime.js, 
 // and Framer Motion to create sophisticated and high-performance website animations.
