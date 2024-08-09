@@ -1,4 +1,4 @@
-//.........first class
+//basics
 let school: string = "altschool";
 console.log(school);
 let person: string | number = "WelcomeTNola";
@@ -301,6 +301,82 @@ type greeting = `hello ${World}`;
 //type assertion "has"
 //obj!.name -- non null assertion, typescript will not check null and allow access
 
+//adding typescript to common react component used on a web app 
+//Modal
+import React from 'react';
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <button onClick={onClose}>Close</button>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+// Navbars
+interface NavbarProps {
+  links: { name: string; path: string }[];
+}
+
+const Navbar: React.FC<NavbarProps> = ({ links }) => {
+  return ();
+};
+
+
+// Button
+interface ButtonProps {
+  onClick: () => void;
+  label: string;
+  disabled?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({ onClick, label, disabled = false }) => {
+  return (
+    <button onClick={onClick} disabled={disabled}>
+      {label}
+    </button>
+  );
+};
+
+// Table.tsx
+interface TableProps<T> {
+  data: T[];
+  columns: { header: string; accessor: keyof T }[];
+}
+
+const Table = <T,>({ data, columns }: TableProps<T>) => {
+  return (
+    <table>
+      <thead>
+        <tr>
+          {columns.map((col) => (
+            <th key={col.accessor as string}>{col.header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {columns.map((col) => (
+              <td key={col.accessor as string}>{row[col.accessor]}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 //zod, drizzle
 // Proficiency in advanced animation libraries like GSAP, Lottie, Three.js, Anime.js, 
